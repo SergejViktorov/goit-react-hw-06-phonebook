@@ -1,14 +1,11 @@
-// import { v4 as uuid } from 'uuid'
-import { connect } from 'react-redux'
-import phoneBookActions from '../redux/phoneBook-actions'
-import { useDispatch } from 'react-redux'
-
 import { useState } from 'react'
+import { v4 as uuid } from 'uuid'
+import { connect } from 'react-redux'
+import * as actions from '../../redux/actions'
 
-function ContactForm() {
+function ContactForm({ onAdd }) {
 	const [name, setName] = useState('')
 	const [number, setNumber] = useState('')
-	const dispatch = useDispatch()
 
 	const handleChange = ({ target }) => {
 		const { name, value } = target
@@ -28,19 +25,19 @@ function ContactForm() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		if (!validateForm()) return
-		// onAdd({ id: uuid(), name, number })
-		dispatch(phoneBookActions.addContact(name, number))
+		// if (!validateForm()) return
+		onAdd({ id: uuid(), name, number })
+
 		reset()
 	}
 
-	const validateForm = () => {
-		if (!name || !number) {
-			alert('Some filed is empty')
-			return false
-		}
-		// return onCheckUnique(name)
-	}
+	// const validateForm = () => {
+	// 	if (!name || !number) {
+	// 		alert('Some filed is empty')
+	// 		return false
+	// 	}
+	// 	return onCheckUnique(name)
+	// }
 
 	const reset = () => {
 		setName('')
@@ -80,13 +77,19 @@ function ContactForm() {
 		</form>
 	)
 }
-// const mapStateToProps = (state) => ({})
+// const mapStateToProps = (state) => {
+// 	console.log('zzz', state.contacts.items)
+// 	return {
+// 		name: state.contacts.items.name,
+// 		number: state.contacts.items.number,
+// 	}
+// }
 
-const mapDispatchToProos = (dispatch) => ({
-	onAdd: (name, number) => dispatch(phoneBookActions.addContact(name, number)),
-
-	onCheckUnique: (name) => dispatch(phoneBookActions.checkName(name)),
-})
-console.log('mapDispatchToProos', mapDispatchToProos())
-
-export default connect(null, mapDispatchToProos())(ContactForm)
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onAdd: (data) => dispatch(actions.addContact(data)),
+		// henlerAddContact: (contacts) => dispatch(actions.addContact(contacts)),
+		// hendleCheck: ()=> dispatch(actions.addContact())
+	}
+}
+export default connect(null, mapDispatchToProps)(ContactForm)
