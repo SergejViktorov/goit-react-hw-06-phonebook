@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { connect } from 'react-redux'
-import * as actions from '../../redux/actions'
+import actions from '../../redux/actions'
 
-function ContactForm({ onAdd }) {
+function ContactForm({ onAdd, contacts }) {
 	const [name, setName] = useState('')
 	const [number, setNumber] = useState('')
 
@@ -26,9 +26,11 @@ function ContactForm({ onAdd }) {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		// if (!validateForm()) return
-		onAdd({ id: uuid(), name, number })
-
-		reset()
+		const isExistContact = !!contacts.items.find(
+			(contact) => contact.name === name
+		)
+		isExistContact && alert('Contact is already exist')
+		return !isExistContact && onAdd({ id: uuid(), name, number }) && reset()
 	}
 
 	// const validateForm = () => {
@@ -77,19 +79,14 @@ function ContactForm({ onAdd }) {
 		</form>
 	)
 }
-// const mapStateToProps = (state) => {
-// 	console.log('zzz', state.contacts.items)
-// 	return {
-// 		name: state.contacts.items.name,
-// 		number: state.contacts.items.number,
-// 	}
-// }
+
+const mapStateToProps = (state) => ({
+	contacts: state.contacts,
+})
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onAdd: (data) => dispatch(actions.addContact(data)),
-		// henlerAddContact: (contacts) => dispatch(actions.addContact(contacts)),
-		// hendleCheck: ()=> dispatch(actions.addContact())
 	}
 }
-export default connect(null, mapDispatchToProps)(ContactForm)
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm)

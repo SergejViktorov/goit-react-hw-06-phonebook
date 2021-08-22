@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../redux/actions'
+import actions from '../../redux/actions'
 
 const Filter = ({ value, onChange }) => {
 	return (

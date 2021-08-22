@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../redux/actions'
+import actions from '../../redux/actions'
 
 const ContactList = ({ contacts, onRemove }) => {
 	console.log('contactsmmm', contacts)
@@ -37,17 +37,6 @@ const getVisibleContacts = (allContacts, filter) => {
 const mapStateToProps = ({ contacts: { items, filter } }) => ({
 	contacts: getVisibleContacts(items, filter),
 })
-
-// const mapStateToProps = (state) => {
-// 	const { filter, items } = state.contacts
-
-// 	const visibleContacts = items.filter((contact) =>
-// 		text.toLowerCase().includes(normalizedFilter)
-// 	)
-// 	return {
-// 		contacts: visibleContacts,
-// 	}
-// }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
