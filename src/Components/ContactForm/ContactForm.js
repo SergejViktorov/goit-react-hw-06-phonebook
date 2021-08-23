@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import actions from '../../redux/actions'
-import {} from 'react-redux'
+import s from './ContactForm.module.css'
 
 export default function ContactForm() {
 	const [name, setName] = useState('')
@@ -46,7 +46,7 @@ export default function ContactForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} className={s.form}>
 			<label>
 				Name
 				<input
@@ -58,6 +58,7 @@ export default function ContactForm() {
 					pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
 					title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
 					required
+					className={s.input}
 				/>
 			</label>
 
@@ -72,6 +73,7 @@ export default function ContactForm() {
 					pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
 					title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
 					required
+					className={s.input}
 				/>
 			</label>
 			<button type="submit">Add contact</button>

@@ -1,14 +1,15 @@
 import ContactForm from './Components/ContactForm/ContactForm'
 import ContactList from './Components/ContactList/ContactList'
 import Filter from './Components/Filter/Filter'
+import s from './App.module.css'
 
 function App() {
 	return (
-		<div>
-			<h2>Phonebook</h2>
+		<div className={s.container}>
+			<h2 className={s.title}>Phonebook</h2>
 			<ContactForm />
 
-			<h2>Contacts</h2>
+			<h2 className={s.title}>Contacts</h2>
 			<Filter />
 			<ContactList />
 		</div>
